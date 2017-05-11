@@ -16,7 +16,7 @@ pip install  -r requirements.txt
 <strong>#4 Edit config:</strong><br />
 Change config.py['SQLALCHEMY_DATABASE_URI'] to your own credentials
 
-<strong>#5 Create Database and table:<strong><br />
+<strong>#5 Create Database and table:</strong><br />
 python app.py db init<br />
 python app.py db migrate
 
