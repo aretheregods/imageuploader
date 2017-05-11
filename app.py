@@ -28,7 +28,7 @@ engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 engine.execute('CREATE DATABASE IF NOT EXISTS photos')
 engine.execute('USE photos')
 
-# Create tables.
+# Create Tables
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
