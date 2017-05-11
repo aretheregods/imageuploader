@@ -12,10 +12,10 @@ SECRET_KEY = 'my precious'
 
 # Connect to the database
 SQLALCHEMY_DATABASE_URI = "mysql://{username}:{password}@{hostname}/{databasename}".format(
-    username="aretheregods",
-    password="SuperWoman1!",
-    hostname="localhost",
-    databasename="Photos",
+    username="username",
+    password="password",
+    hostname="host",
+    databasename="dbName",
 )
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
