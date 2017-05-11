@@ -1,6 +1,6 @@
 A simple website for uploading images to a flask python server
 
-#1 Clone Repo:<br />
+<strong>#1 Clone Repo:</strong><br />
 git clone https://github.com/aretheregods/imageuploader.git
 <br />
 cd imageuploader
