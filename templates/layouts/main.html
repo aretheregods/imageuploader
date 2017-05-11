@@ -6,7 +6,7 @@
 <!-- meta -->
 <meta name="description" content="">
 <meta name="author" content="">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <!-- /meta -->
 
 <!-- styles -->
@@ -48,40 +48,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Project name</a>
+          <a class="navbar-brand" href="/"><p>Upload your image</p></a>
         </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li {% if request.endpoint == 'home' %} class="active" {% endif %}><a href="{{ url_for('home') }}">Home</a></li>
-            <li {% if request.endpoint == 'about' %} class="active" {% endif %}><a href="{{ url_for('about') }}">About</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a>Action</a></li>
-                <li><a>Another action</a></li>
-                <li><a>Something else here</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a>Separated link</a></li>
-                <li><a>One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav pull-right">
-            <li><a href="{{ url_for('register') }}">Signup</a></li>
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
       </div>
     </div>
 
     <!-- Begin page content -->
-    <main id="content" role="main" class="container">
+    <main id="content" role="main" class="container" style="background:url('static/img/pexels-photo-210186-min.jpg') no-repeat center center fixed; background-size: cover;height:calc(100vh - 60px);width:auto;opacity:0.65">
 
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           {% for message in messages %}
-            <div class="alert alert-block alert-error fade in">
+            <div class="alert alert-block alert-error fade in" style="color:floralwhite;background-color:cornflowerblue">
               <a class="close" data-dismiss="alert">&times;</a>
               {{ message }}
             </div>
@@ -97,7 +75,7 @@
 
   <div id="footer">
     <div class="container">
-      <p>Your Company &copy; All Rights Reserved.</p>
+      <h4>Thanks for checking this out.</h4>
       {% block footer %}{% endblock %}
     </div>
   </div>
@@ -114,6 +92,7 @@
     load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
   });
   </script>
+  <script type="text/javascript" src="/static/js/index.js" async></script>
 
 </body>
 </html>

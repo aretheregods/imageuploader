@@ -2,11 +2,18 @@
 # Imports
 #----------------------------------------------------------------------------#
 
-from flask import Flask, render_template, request
-# from flask.ext.sqlalchemy import SQLAlchemy
+from flask import Flask, flash, render_template, request, redirect, url_for
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+import time
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 import logging
 from logging import Formatter, FileHandler
-from forms import *
+from werkzeug.utils import secure_filename
 import os
 
 #----------------------------------------------------------------------------#
@@ -15,62 +22,67 @@ import os
 
 app = Flask(__name__)
 app.config.from_object('config')
-#db = SQLAlchemy(app)
+db = SQLAlchemy(app)
 
-# Automatically tear down SQLAlchemy.
-'''
-@app.teardown_request
-def shutdown_session(exception=None):
-    db_session.remove()
-'''
+# Create Database
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+engine.execute('CREATE DATABASE IF NOT EXISTS photos')
+engine.execute('USE photos')
 
-# Login required decorator.
-'''
-def login_required(test):
-    @wraps(test)
-    def wrap(*args, **kwargs):
-        if 'logged_in' in session:
-            return test(*args, **kwargs)
-        else:
-            flash('You need to login first.')
-            return redirect(url_for('login'))
-    return wrap
-'''
-#----------------------------------------------------------------------------#
-# Controllers.
-#----------------------------------------------------------------------------#
+# Create tables.
+migrate = Migrate(app, db)
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
+class Photos(db.Model):
+    __tablename__ = 'Photos'
 
-@app.route('/')
-def home():
-    return render_template('pages/placeholder.home.html')
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), unique=True)
+    file_location = db.Column(db.String(120), unique=True)
+    upload_date = db.Column(db.DateTime, unique=True, default=datetime.now)
 
+    def __init__(self, name=None, file_location=None, upload_date=datetime.now):
+        self.name = name
+        self.file_location = file_location
+        self.upload_date = upload_date
 
-@app.route('/about')
-def about():
-    return render_template('pages/placeholder.about.html')
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
 
+# Routing
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 
-@app.route('/login')
-def login():
-    form = LoginForm(request.form)
-    return render_template('forms/login.html', form=form)
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            ts = time.time()
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            timestamp = datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+            image_data = Photos(name=filename, file_location=filepath, upload_date=timestamp)
+            file.save(filepath)
+            db.session.add(image_data)
+            db.session.commit()
+            flash('You uploaded %s' % filename)
+            return redirect(url_for('upload_file',
+                                    filename=filename))
+    return render_template('pages/home.html')
 
-
-@app.route('/register')
-def register():
-    form = RegisterForm(request.form)
-    return render_template('forms/register.html', form=form)
-
-
-@app.route('/forgot')
-def forgot():
-    form = ForgotForm(request.form)
-    return render_template('forms/forgot.html', form=form)
-
-# Error handlers.
-
-
+# Error Handling Routes
 @app.errorhandler(500)
 def internal_error(error):
     #db_session.rollback()
@@ -97,6 +109,7 @@ if not app.debug:
 
 # Default port:
 if __name__ == '__main__':
+    manager.run()
     app.run()
 
 # Or specify port manually:
