@@ -6,6 +6,8 @@ git clone https://github.com/aretheregods/imageuploader.git
 cd imageuploader
 
 <strong>#2 Init and Start Virtual Environment:</strong><br />
+<em>(If virtualenv isn't installed)</em><br />
+<em>pip install virtualenv</em><br />
 virtualenv --no-site-packages env<br />
 Windows CMD(Or Powershell): env/Scripts/activate<br />
 Windows Bash(Git Bash or MinGW): source env/Scripts/activate<br />
