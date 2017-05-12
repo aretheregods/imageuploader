@@ -7,7 +7,8 @@ cd imageuploader
 
 <strong>#2 Init and Start Virtual Environment:</strong><br />
 virtualenv --no-site-packages env<br />
-Windows: source env/Scripts/activate<br />
+Windows: env/Scripts/activate<br />
+Windows Bash(Git Bash or MinGW or Cygwin): source env/Scripts/activate<br />
 OSX/Linux: source env/bin/activate
 
 <strong>#3 Install Dependencies:</strong><br />
@@ -18,7 +19,8 @@ Change config.py['SQLALCHEMY_DATABASE_URI'] to your own credentials
 
 <strong>#5 Create Database and table:</strong><br />
 python app.py db init<br />
-python app.py db migrate
+python app.py db migrate<br />
+python app.py db upgrade
 
 <strong>#6 Start the app:</strong><br />
 python app.py runserver
