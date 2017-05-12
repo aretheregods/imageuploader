@@ -17,7 +17,7 @@ OSX/Linux: source env/bin/activate
 pip install  -r requirements.txt
 
 <strong>#4 Edit database config:</strong><br />
-Change app.py <pre>engine = engine.create_engine(<strong><em>your_database address</em></strong>)</pre><br />
+Change app.py <pre>engine = engine.create_engine(<strong><em>your_database_address</em></strong>)</pre><br />
 Change config.py['SQLALCHEMY_DATABASE_URI'] to your own credentials
 
 <strong>#5 Create Database and table:</strong><br />
