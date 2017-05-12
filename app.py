@@ -3,13 +3,14 @@
 #----------------------------------------------------------------------------#
 
 from flask import Flask, flash, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine, Column, Integer, String
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import time
-from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+from flask_dropzone import Dropzone
 import logging
 from logging import Formatter, FileHandler
 from werkzeug.utils import secure_filename
@@ -22,9 +23,10 @@ import os
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
+dropzone = Dropzone(app)
 
 # Create Database
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+engine = create_engine("mysql://aretheregods:SuperWoman1!@localhost")
 engine.execute('CREATE DATABASE IF NOT EXISTS photos')
 engine.execute('USE photos')
 
@@ -76,7 +78,7 @@ def upload_file():
             file.save(filepath)
             db.session.add(image_data)
             db.session.commit()
-            flash('You uploaded %s' % filename)
+            flash('You uploaded %s!' % filename)
             return redirect(url_for('upload_file',
                                     filename=filename))
     return render_template('pages/home.html')
