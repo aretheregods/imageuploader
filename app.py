@@ -26,7 +26,7 @@ db = SQLAlchemy(app)
 dropzone = Dropzone(app)
 
 # Create Database
-engine = create_engine("mysql://aretheregods:SuperWoman1!@localhost")
+engine = create_engine("mysql://your_username:your_password@your_host")
 engine.execute('CREATE DATABASE IF NOT EXISTS photos')
 engine.execute('USE photos')
 
