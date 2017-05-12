@@ -31,7 +31,7 @@ python app.py db upgrade</pre>
 <strong>#7 See the site at:</strong><br />
 http://localhost:5000
 
-<strong style="color:red">#<em>Just in case~</em>Delete mysql photos database:</strong><br />
+<span style="color:red"><strong>#<em>Just in case~</em>Delete mysql photos database:</strong></span></<br />
 In a terminal window -> <pre>mysql -u your_username -p</pre>
 Put in your password when prompted<br />
 <pre>-> USE photos;<br />
