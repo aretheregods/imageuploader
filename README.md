@@ -14,7 +14,7 @@ Windows Bash(Git Bash or MinGW): <pre>source env/Scripts/activate</pre><br />
 OSX/Linux: <pre>source env/bin/activate</pre>
 
 <strong>3. Install Dependencies:</strong><br />
-<pre>install  -r requirements.txt</pre>
+<pre>pip install  -r requirements.txt</pre>
 
 <strong>4. Edit database config:</strong><br />
 Change app.py <pre>engine = engine.create_engine(<strong><em>your_database_address</em></strong>)</pre><br />
