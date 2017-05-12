@@ -1,4 +1,4 @@
-*.pyc
+*.pycrth
 .DS_Store
 env/
 migrations/
