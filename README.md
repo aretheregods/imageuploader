@@ -33,6 +33,7 @@ http://localhost:5000
 
 <strong>#<em>Just in case~</em>Delete mysql photos database:</strong><br />
 In a terminal window -> <pre>mysql -u your_username -p</pre><br />
+Put in your password when prompted<br />
 <pre>-> USE photos;<br />
 (If this database exists already, delete it)<br />
 -> DROP DATABASE photos;<br />
