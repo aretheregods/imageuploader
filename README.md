@@ -27,3 +27,12 @@ python app.py runserver
 
 <strong>#7 See the site at:</strong><br />
 http://localhost:5000
+
+<strong>#<em>Just in case~</em>Delete mysql photos database:</strong><br />
+In a terminal window -> mysql -u your_username -p<br />
+-> USE photos;<br />
+(If this database exists already, delete it)<br />
+-> DROP DATABASE photos;<br />
+(Go back to terminal with \q)<br />
+-> \q<br />
+(Retry previous steps 5 - 7)
