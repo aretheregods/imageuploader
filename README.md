@@ -7,8 +7,8 @@ cd imageuploader
 
 <strong>#2 Init and Start Virtual Environment:</strong><br />
 virtualenv --no-site-packages env<br />
-Windows: env/Scripts/activate<br />
-Windows Bash(Git Bash or MinGW or Cygwin): source env/Scripts/activate<br />
+Windows CMD(Or Powershell): env/Scripts/activate<br />
+Windows Bash(Git Bash or MinGW): source env/Scripts/activate<br />
 OSX/Linux: source env/bin/activate
 
 <strong>#3 Install Dependencies:</strong><br />
